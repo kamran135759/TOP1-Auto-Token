@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOP1 Auto Token Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;background:#0b1020;color:#fff;font-family:Arial,sans-serif}
+.card{max-width:480px;margin:25px auto;padding:24px;background:#151d32;border:1px solid #293653;border-radius:18px}
+h1{color:#65e6c1;text-align:center}
+p{color:#b8c4da;text-align:center}
+label{display:block;margin-top:14px;color:#cbd5e1}
+input{width:100%;padding:13px;margin-top:6px;border-radius:9px;border:1px solid #34445f;background:#0b1020;color:white}
+button{width:100%;padding:14px;margin-top:14px;border:0;border-radius:9px;background:#65e6c1;color:#07121a;font-weight:bold;font-size:15px}
+.secondary{background:#293653;color:white}
+#status{margin-top:18px;padding:12px;border-radius:9px;background:#0b1020;overflow-wrap:anywhere;font-size:14px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>TOP1 Studio</h1>
+<p>Token Settings & Wallet Connection</p>
+
+<label>Token Name</label>
+<input id="tokenName" value="TOP1">
+
+<label>Token Symbol</label>
+<input id="tokenSymbol" value="TOP1">
+
+<label>Total Supply</label>
+<input id="supply" type="number" value="1000000">
+
+<label>Decimals</label>
+<input id="decimals" type="number" value="18">
+
+<button onclick="connectWallet()">Connect Wallet</button>
+<button class="secondary" onclick="checkSettings()">Check Settings</button>
+<button class="secondary" onclick="checkNetwork()">Check BNB Network</button>
+
+<div id="status">Status: Ready</div>
+</div>
+
+<script>
+const statusBox = document.getElementById("status");
+
+function showStatus(message) {
+  statusBox.textContent = message;
+}
+
+async function connectWallet() {
+  if (!window.ethereum) {
+    showStatus("No compatible wallet detected. Open this page in your wallet's DApp browser.");
+    return;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts"
+    });
+
+    showStatus("Connected account: " + accounts[0]);
+  } catch (error) {
+    showStatus("Connection cancelled or failed: " + error.message);
+  }
+}
+
+function checkSettings() {
+  const name = document.getElementById("tokenName").value.trim();
+  const symbol = document.getElementById("tokenSymbol").value.trim();
+  const supply = Number(document.getElementById("supply").value);
+  const decimals = Number(document.getElementById("decimals").value);
+
+  if (!name || !symbol || !Number.isSafeInteger(supply) ||
+      supply <= 0 || !Number.isInteger(decimals) ||
+      decimals < 0 || decimals > 18) {
+    showStatus("Error: Check the token settings.");
+    return;
+  }
+
+  showStatus(
+    "Settings OK\nName: " + name +
+    "\nSymbol: " + symbol +
+    "\nSupply: " + supply +
+    "\nDecimals: " + decimals +
+    "\nNo token has been deployed."
+  );
+}
+
+async function checkNetwork() {
+  if (!window.ethereum) {
+    showStatus("Open this page in a compatible wallet browser first.");
+    return;
+  }
+
+  try {
+    const chainId = await window.ethereum.request({
+      method: "eth_chainId"
+    });
+
+    if (chainId === "0x38") {
+      showStatus("Connected to BNB Smart Chain Mainnet.");
+    } else {
+      showStatus("Wrong network. Current Chain ID: " + chainId +
+        ". Please select BNB Smart Chain.");
+    }
+  } catch (error) {
+    showStatus("Network check failed: " + error.message);
+  }
+}
+
+if (window.ethereum) {
+  window.ethereum.on("accountsChanged", accounts => {
+    showStatus(accounts.length
+      ? "Active account: " + accounts[0]
+      : "Wallet disconnected.");
+  });
+
+  window.ethereum.on("chainChanged", () => {
+    showStatus("Network changed. Check the network again.");
+  });
+}
+</script>
+</body>
+</html>
