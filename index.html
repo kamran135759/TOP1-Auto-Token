@@ -2,564 +2,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1020">
-  <title>TOP1 Studio</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0b1020;
-      --panel: #141c30;
-      --border: #293653;
-      --text: #f1f5ff;
-      --muted: #a8b4cc;
-      --blue: #638cff;
-      --green: #53d6a0;
-      --red: #ff8585;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 20px 14px 40px;
-      background: var(--bg);
-      color: var(--text);
-      font: 15px/1.6 system-ui, sans-serif;
-    }
-
-    main {
-      max-width: 680px;
-      margin: auto;
-    }
-
-    header {
-      text-align: center;
-      margin: 10px 0 24px;
-    }
-
-    .logo {
-      width: 66px;
-      height: 66px;
-      margin: auto auto 12px;
-      display: grid;
-      place-items: center;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #638cff, #a16bff);
-      font-size: 27px;
-      font-weight: 900;
-    }
-
-    h1 { margin: 0; font-size: 27px; }
-    h2 { margin: 0 0 14px; font-size: 18px; }
-    p { color: var(--muted); }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      margin: 12px 0 5px;
-      color: var(--muted);
-    }
-
-    input, select {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      color: var(--text);
-      background: #0b1222;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      font: inherit;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px 14px;
-      margin-top: 10px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #202d49;
-      color: var(--text);
-      font: inherit;
-      font-weight: 650;
-      cursor: pointer;
-    }
-
-    button.primary {
-      background: var(--blue);
-      color: #081126;
-      border-color: transparent;
-    }
-
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .status {
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 9px;
-      background: #0b1222;
-      border: 1px solid var(--border);
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      color: var(--muted);
-    }
-
-    .status.good { color: var(--green); }
-    .status.bad { color: var(--red); }
-
-    .note {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    code {
-      overflow-wrap: anywhere;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080d1b">
+<title>TOP1 Auto Token Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d1b;color:#f3f6ff;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px 14px;border-bottom:1px solid #293653}
+.logo{width:55px;height:55px;margin:auto;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#9b7bff,#39d9ff);color:#07101f;font-size:24px;font-weight:900}
+h1{font-size:24px;margin:12px 0 6px}
+.sub{color:#a9b5d0;font-size:13px}
+main{max-width:680px;margin:auto;padding:16px}
+.card{background:#111a2d;border:1px solid #293653;border-radius:16px;padding:17px;margin-bottom:15px}
+h2{font-size:17px;margin:0 0 14px}
+label{display:block;font-size:13px;color:#b6c3dc;margin:12px 0 6px}
+input{width:100%;padding:12px;border-radius:9px;border:1px solid #344361;background:#0a1222;color:#fff;font-size:15px}
+button{width:100%;padding:13px;border:0;border-radius:10px;margin:6px 0;background:#8d79ff;color:#fff;font-size:14px;font-weight:bold;cursor:pointer}
+button.secondary{background:#263451}
+button.green{background:#087e72}
+button:disabled{opacity:.5}
+.status{font-size:13px;line-height:1.6;color:#c3cde1;overflow-wrap:anywhere;margin-top:9px}
+.value{font-size:13px;color:#58e0ca;overflow-wrap:anywhere;margin-top:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid button{margin:0}
+.note{font-size:12px;color:#ffce79;line-height:1.7}
+pre{white-space:pre;overflow:auto;background:#080d1b;border:1px solid #293653;border-radius:9px;padding:12px;font-size:12px;line-height:1.5;max-height:320px}
+footer{text-align:center;padding:15px;color:#7584a2;font-size:12px}
+</style>
 </head>
-
 <body>
+<header>
+  <div class="logo">T1</div>
+  <h1>TOP1 Auto Token Studio</h1>
+  <div class="sub">Generate · Connect · Manage</div>
+</header>
+
 <main>
-  <header>
-    <div class="logo">T1</div>
-    <h1>TOP1 Studio</h1>
-    <p>BEP-20 Token Control Panel</p>
-  </header>
+  <section class="card">
+    <h2>1. Wallet Connection</h2>
+    <button id="connectBtn">Connect Wallet</button>
+    <div class="status" id="walletStatus">Wallet not connected.</div>
+    <div class="value" id="walletAddress"></div>
+    <div class="value" id="walletBalance"></div>
+    <button class="secondary" id="checkWalletBtn">Check Wallet & Network</button>
+  </section>
 
-  <section class="panel">
-    <h2>Token Settings</h2>
-
+  <section class="card">
+    <h2>2. Token Generator</h2>
     <label for="tokenName">Token Name</label>
-    <input id="tokenName" value="TOP1" maxlength="64">
+    <input id="tokenName" value="TOP1">
 
     <label for="tokenSymbol">Token Symbol</label>
-    <input id="tokenSymbol" value="TOP1" maxlength="16">
+    <input id="tokenSymbol" value="TOP1">
 
-    <label for="totalSupply">Total Supply</label>
-    <input id="totalSupply" type="number"
-      value="1000000" min="1" step="1">
+    <label for="tokenDecimals">Decimals</label>
+    <input id="tokenDecimals" value="18" inputmode="numeric">
 
-    <label for="decimals">Decimals</label>
-    <input id="decimals" type="number"
-      value="18" min="0" max="18" step="1">
+    <label for="tokenSupply">Total Supply</label>
+    <input id="tokenSupply" value="1000000" inputmode="numeric">
 
-    <label for="network">Network</label>
-    <select id="network">
-      <option value="97">BNB Testnet</option>
-      <option value="56" selected>BNB Mainnet</option>
-    </select>
-
-    <button id="validateBtn" class="primary">
-      Validate Token Settings
-    </button>
-    <button id="generateBtn">Generate Solidity Contract</button>
-    <button id="downloadBtn">Download TOP1.sol</button>
-
-    <div id="settingsStatus" class="status">
-      Ready. Check your token settings.
+    <div class="grid">
+      <button class="secondary" id="minusBtn">− 1,000,000</button>
+      <button class="secondary" id="plusBtn">+ 1,000,000</button>
     </div>
+
+    <button id="startBtn" class="green">START</button>
+    <button id="generateBtn">GENERATE SOLIDITY CODE</button>
+    <div class="status" id="generatorStatus">Ready to configure token.</div>
   </section>
 
-  <section class="panel">
-    <h2>Wallet Connection</h2>
+  <section class="card">
+    <h2>3. Contract Address</h2>
+    <label for="contractAddress">Contract Address on BNB Smart Chain</label>
+    <input id="contractAddress" placeholder="0x...">
 
-    <button id="connectBtn" class="primary">
-      Connect MetaMask
-    </button>
-    <button id="networkBtn">Check BNB Network</button>
-    <button id="balanceBtn">Check BNB Balance</button>
-
-    <div id="walletStatus" class="status">
-      Wallet not connected.
+    <button id="connectContractBtn">CONNECT CONTRACT</button>
+    <div class="status" id="contractStatus">
+      Enter the contract address after deploying in Remix.
     </div>
+    <div class="value" id="contractName"></div>
+    <div class="value" id="contractSymbol"></div>
+    <div class="value" id="contractSupply"></div>
+    <div class="value" id="contractBalance"></div>
+    <button class="secondary" id="explorerBtn">OPEN ON BscScan</button>
   </section>
 
-  <section class="panel">
-    <h2>Contract Status</h2>
-
-    <button id="deployStatusBtn">Deploy Status</button>
-
-    <div id="deployStatus" class="status">
-      No deployment has been performed by this app.
+  <section class="card">
+    <h2>4. Generated Solidity</h2>
+    <div class="grid">
+      <button class="secondary" id="copyBtn">COPY CODE</button>
+      <button class="secondary" id="downloadBtn">DOWNLOAD .SOL</button>
     </div>
+    <pre id="codeOutput">// Press GENERATE SOLIDITY CODE to create the contract source.</pre>
+  </section>
 
+  <section class="card">
+    <h2>Important</h2>
     <p class="note">
-      This version does not compile or deploy contracts.
-      Mainnet deployment requires compiled contract bytecode,
-      a compatible wallet, network access and BNB for gas.
-      Never enter your recovery phrase or private key here.
+      START and GENERATE do not deploy a contract. Deploy the generated source
+      through Remix and approve the transaction in your wallet. Increasing the
+      supply here only changes the next generated contract; it cannot increase
+      the supply of an already deployed fixed-supply token. Never enter your
+      recovery phrase or private key in this app.
     </p>
   </section>
 </main>
+<footer>TOP1 Studio · BNB Smart Chain</footer>
 
 <script>
-"use strict";
+(() => {
+  "use strict";
 
-(function () {
   const $ = id => document.getElementById(id);
+  const CHAIN_HEX = "0x38";
+  const CHAIN_DEC = 56;
+  const PROJECT_ID = "a6f890ea7b1d6e1cc4aea51ebe5e1120";
 
-  let connectedAccount = null;
-  let connectedChainId = null;
-  let generatedSource = "";
+  let provider = null;
+  let wallet = "";
+  let generatedCode = "";
+  let connectedContract = null;
 
-  function show(id, message, type) {
-    const el = $(id);
-    el.textContent = message;
-    el.className = "status" + (type ? " " + type : "");
+  const ABI = [
+    "function name() view returns (string)",
+    "function symbol() view returns (string)",
+    "function decimals() view returns (uint8)",
+    "function totalSupply() view returns (uint256)",
+    "function balanceOf(address) view returns (uint256)"
+  ];
+
+  function setStatus(id, text) {
+    $(id).textContent = text;
   }
 
-  function getProvider() {
-    if (!window.ethereum ||
-        typeof window.ethereum.request !== "function") {
-      throw new Error(
-        "MetaMask provider is not available in this browser. " +
-        "Open this site in a wallet browser that injects " +
-        "window.ethereum, or use a supported wallet connection flow."
-      );
+  function shortAddress(a) {
+    return a ? a.slice(0, 6) + "..." + a.slice(-4) : "";
+  }
+
+  function getSupply() {
+    const raw = $("tokenSupply").value.trim();
+    if (!/^\d+$/.test(raw)) throw new Error("Supply must be a whole number.");
+    const n = BigInt(raw);
+    if (n <= 0n || n > 1000000000000000000n) {
+      throw new Error("Supply must be between 1 and 1 quintillion.");
     }
-    return window.ethereum;
+    return n;
   }
 
-  function readSettings() {
+  function getDecimals() {
+    const raw = $("tokenDecimals").value.trim();
+    if (!/^\d+$/.test(raw)) throw new Error("Decimals must be an integer.");
+    const n = Number(raw);
+    if (n < 0 || n > 18) throw new Error("Decimals must be from 0 to 18.");
+    return n;
+  }
+
+  function contractSource() {
     const name = $("tokenName").value.trim();
     const symbol = $("tokenSymbol").value.trim();
-    const supplyText = $("totalSupply").value.trim();
-    const decimalsText = $("decimals").value.trim();
-    const network = Number($("network").value);
+    const decimals = getDecimals();
+    const supply = getSupply();
 
-    if (!name || name.length > 64) {
-      throw new Error("Enter a token name of 1 to 64 characters.");
+    if (!name || !symbol) throw new Error("Name and symbol are required.");
+    if (name.length > 40 || symbol.length > 12) {
+      throw new Error("Name max 40 characters; symbol max 12.");
+    }
+    if (!/^[A-Za-z0-9 ]+$/.test(name) || !/^[A-Za-z0-9]+$/.test(symbol)) {
+      throw new Error("Use English letters and numbers for name and symbol.");
     }
 
-    if (!symbol || symbol.length > 16) {
-      throw new Error("Enter a symbol of 1 to 16 characters.");
-    }
-
-    if (!/^[0-9]+$/.test(supplyText)) {
-      throw new Error("Supply must be a whole positive number.");
-    }
-
-    const supply = BigInt(supplyText);
-
-    if (supply <= 0n) {
-      throw new Error("Supply must be greater than zero.");
-    }
-
-    if (!/^(0|[1-9][0-9]*)$/.test(decimalsText)) {
-      throw new Error("Decimals must be an integer from 0 to 18.");
-    }
-
-    const decimals = Number(decimalsText);
-
-    if (!Number.isInteger(decimals) ||
-        decimals < 0 || decimals > 18) {
-      throw new Error("Decimals must be between 0 and 18.");
-    }
-
-    return { name, symbol, supply, decimals, network };
-  }
-
-  function makeSolidity(s) {
-    const name = JSON.stringify(s.name);
-    const symbol = JSON.stringify(s.symbol);
-    const supply = s.supply.toString();
-    const decimals = s.decimals;
+    const multiplier = 10n ** BigInt(decimals);
+    const total = supply * multiplier;
 
     return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract TOP1 {
-    string public constant name = ${name};
-    string public constant symbol = ${symbol};
+contract TOP1GeneratedToken {
+    string public constant name = "${name}";
+    string public constant symbol = "${symbol}";
     uint8 public constant decimals = ${decimals};
-    uint256 public constant totalSupply =
-        ${supply} * 10 ** ${decimals};
+    uint256 public constant totalSupply = ${total};
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
-    event Transfer(
-        address indexed from,
-        address indexed to,
-        uint256 value
-    );
-
-    event Approval(
-        address indexed owner,
-        address indexed spender,
-        uint256 value
-    );
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
 
     constructor() {
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }
 
-    function transfer(address to, uint256 value)
-        public returns (bool)
-    {
+    function transfer(address to, uint256 value) external returns (bool) {
         require(to != address(0), "Invalid recipient");
         require(balanceOf[msg.sender] >= value, "Insufficient balance");
-
         balanceOf[msg.sender] -= value;
         balanceOf[to] += value;
-
         emit Transfer(msg.sender, to, value);
         return true;
     }
 
-    function approve(address spender, uint256 value)
-        public returns (bool)
-    {
+    function approve(address spender, uint256 value) external returns (bool) {
         require(spender != address(0), "Invalid spender");
-
         allowance[msg.sender][spender] = value;
         emit Approval(msg.sender, spender, value);
         return true;
     }
 
-    function transferFrom(address from, address to, uint256 value)
-        public returns (bool)
-    {
-        require(from != address(0), "Invalid sender");
-        require(to != address(0), "Invalid recipient");
+    function transferFrom(address from, address to, uint256 value) external returns (bool) {
+        require(from != address(0) && to != address(0), "Invalid address");
         require(balanceOf[from] >= value, "Insufficient balance");
         require(allowance[from][msg.sender] >= value, "Allowance exceeded");
-
         allowance[from][msg.sender] -= value;
         balanceOf[from] -= value;
         balanceOf[to] += value;
-
         emit Transfer(from, to, value);
         return true;
     }
-}
-`;
+}`;
   }
 
   async function connectWallet() {
-    const provider = getProvider();
-
-    const accounts = await provider.request({
-      method: "eth_requestAccounts"
-    });
-
-    if (!accounts || !accounts.length) {
-      throw new Error("No account was returned by the wallet.");
-    }
-
-    const chainHex = await provider.request({
-      method: "eth_chainId"
-    });
-
-    connectedAccount = accounts[0];
-    connectedChainId = Number.parseInt(chainHex, 16);
-
-    show(
-      "walletStatus",
-      "Wallet connected.\nAccount: " + connectedAccount +
-      "\nChain ID: " + connectedChainId,
-      "good"
-    );
-
-    return { account: connectedAccount, chainId: connectedChainId };
-  }
-
-  async function checkNetwork() {
-    const provider = getProvider();
-    const chainHex = await provider.request({
-      method: "eth_chainId"
-    });
-    const actual = Number.parseInt(chainHex, 16);
-    const expected = Number($("network").value);
-
-    connectedChainId = actual;
-
-    if (actual !== expected) {
-      show(
-        "walletStatus",
-        "Wrong network.\nCurrent chain ID: " + actual +
-        "\nExpected chain ID: " + expected,
-        "bad"
-      );
-      return;
-    }
-
-    show(
-      "walletStatus",
-      "Correct network: " +
-      (actual === 56 ? "BNB Mainnet" : "BNB Testnet") +
-      "\nChain ID: " + actual,
-      "good"
-    );
-  }
-
-  async function checkBalance() {
-    const provider = getProvider();
-
-    if (!connectedAccount) {
-      await connectWallet();
-    }
-
-    const hex = await provider.request({
-      method: "eth_getBalance",
-      params: [connectedAccount, "latest"]
-    });
-
-    const wei = BigInt(hex);
-    const whole = wei / (10n ** 18n);
-    const fraction = (wei % (10n ** 18n))
-      .toString().padStart(18, "0").replace(/0+$/, "");
-    const formatted = fraction
-      ? whole.toString() + "." + fraction
-      : whole.toString();
-
-    show(
-      "walletStatus",
-      "Account: " + connectedAccount +
-      "\nBNB balance: " + formatted,
-      "good"
-    );
-  }
-
-  $("connectBtn").addEventListener("click", async function () {
-    show("walletStatus", "Waiting for wallet approval...");
     try {
-      await connectWallet();
-    } catch (error) {
-      show(
-        "walletStatus",
-        "Connection failed: " + (error.message || String(error)),
-        "bad"
-      );
-    }
-  });
-
-  $("networkBtn").addEventListener("click", async function () {
-    try {
-      await checkNetwork();
-    } catch (error) {
-      show(
-        "walletStatus",
-        "Network check failed: " + (error.message || String(error)),
-        "bad"
-      );
-    }
-  });
-
-  $("balanceBtn").addEventListener("click", async function () {
-    try {
-      await checkBalance();
-    } catch (error) {
-      show(
-        "walletStatus",
-        "Balance check failed: " + (error.message || String(error)),
-        "bad"
-      );
-    }
-  });
-
-  $("validateBtn").addEventListener("click", function () {
-    try {
-      const s = readSettings();
-      show(
-        "settingsStatus",
-        "Settings are valid.\nName: " + s.name +
-        "\nSymbol: " + s.symbol +
-        "\nSupply: " + s.supply.toString() +
-        "\nDecimals: " + s.decimals +
-        "\nSelected chain ID: " + s.network,
-        "good"
-      );
-    } catch (error) {
-      show("settingsStatus", error.message || String(error), "bad");
-    }
-  });
-
-  $("generateBtn").addEventListener("click", function () {
-    try {
-      generatedSource = makeSolidity(readSettings());
-      show(
-        "settingsStatus",
-        "Solidity source generated in memory. Click Download TOP1.sol to save it. Compilation has not been performed.",
-        "good"
-      );
-    } catch (error) {
-      show("settingsStatus", error.message || String(error), "bad");
-    }
-  });
-
-  $("downloadBtn").addEventListener("click", function () {
-    try {
-      if (!generatedSource) {
-        generatedSource = makeSolidity(readSettings());
+      if (!window.ethereum) {
+        setStatus("walletStatus",
+          "Wallet provider not detected. Open this site inside your wallet browser, or use the Reown connection modal.");
+        return;
       }
 
-      const blob = new Blob([generatedSource], {
-        type: "text/plain;charset=utf-8"
+      provider = window.ethereum;
+      const accounts = await provider.request({ method: "eth_requestAccounts" });
+      if (!accounts || !accounts.length) throw new Error("No account returned.");
+
+      wallet = accounts[0];
+      $("walletAddress").textContent = "Address: " + wallet;
+      setStatus("walletStatus", "Wallet connected.");
+      await checkWallet();
+    } catch (e) {
+      setStatus("walletStatus", "Connection failed: " + e.message);
+    }
+  }
+
+  async function checkWallet() {
+    try {
+      if (!provider && window.ethereum) provider = window.ethereum;
+      if (!provider) throw new Error("Wallet not detected. Connect first.");
+
+      const accounts = await provider.request({ method: "eth_accounts" });
+      if (accounts && accounts.length) wallet = accounts[0];
+      if (!wallet) throw new Error("Connect your wallet first.");
+
+      const chain = await provider.request({ method: "eth_chainId" });
+      if (chain.toLowerCase() !== CHAIN_HEX) {
+        setStatus("walletStatus", "Wrong network. Switch to BNB Smart Chain, Chain ID 56.");
+        $("walletBalance").textContent = "";
+        return;
+      }
+
+      const balance = await provider.request({
+        method: "eth_getBalance",
+        params: [wallet, "latest"]
       });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
+      const wei = BigInt(balance);
+      const whole = wei / (10n ** 18n);
+      const fraction = (wei % (10n ** 18n)).toString().padStart(18, "0").slice(0, 6);
+      $("walletAddress").textContent = "Address: " + wallet;
+      $("walletBalance").textContent = "Balance: " + whole + "." + fraction + " BNB";
+      setStatus("walletStatus", "Connected to BNB Smart Chain (56).");
+    } catch (e) {
+      setStatus("walletStatus", "Wallet check failed: " + e.message);
+    }
+  }
 
-      a.href = url;
-      a.download = "TOP1.sol";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-
-      show("settingsStatus", "TOP1.sol download requested.", "good");
-    } catch (error) {
-      show("settingsStatus", error.message || String(error), "bad");
+  $("startBtn").addEventListener("click", () => {
+    try {
+      getSupply();
+      getDecimals();
+      setStatus("generatorStatus",
+        "START complete. Settings checked. Press GENERATE SOLIDITY CODE next.");
+    } catch (e) {
+      setStatus("generatorStatus", "Error: " + e.message);
     }
   });
 
-  $("deployStatusBtn").addEventListener("click", function () {
-    show(
-      "deployStatus",
-      "Not deployed by this app.\nNo deployment transaction was sent.\nThe Solidity source must be compiled and deployed separately.",
-      "bad"
-    );
+  $("plusBtn").addEventListener("click", () => {
+    try {
+      const n = getSupply() + 1000000n;
+      $("tokenSupply").value = n.toString();
+      setStatus("generatorStatus", "Supply increased by 1,000,000 for the next generated contract.");
+    } catch (e) {
+      setStatus("generatorStatus", e.message);
+    }
   });
 
-  if (window.ethereum &&
-      typeof window.ethereum.on === "function") {
-    window.ethereum.on("accountsChanged", function (accounts) {
-      connectedAccount = accounts && accounts.length
-        ? accounts[0] : null;
+  $("minusBtn").addEventListener("click", () => {
+    try {
+      const n = getSupply();
+      if (n <= 1000000n) {
+        setStatus("generatorStatus", "Supply cannot be reduced below 1,000,000.");
+        return;
+      }
+      $("tokenSupply").value = (n - 1000000n).toString();
+      setStatus("generatorStatus", "Supply decreased by 1,000,000 for the next generated contract.");
+    } catch (e) {
+      setStatus("generatorStatus", e.message);
+    }
+  });
 
-      show(
-        "walletStatus",
-        connectedAccount
-          ? "Wallet account changed:\n" + connectedAccount
-          : "Wallet disconnected.",
-        connectedAccount ? "good" : "bad"
-      );
-    });
+  $("generateBtn").addEventListener("click", () => {
+    try {
+      generatedCode = contractSource();
+      $("codeOutput").textContent = generatedCode;
+      setStatus("generatorStatus",
+        "Code generated successfully. Save the .sol file and compile/deploy it in Remix.");
+    } catch (e) {
+      setStatus("generatorStatus", "Generation failed: " + e.message);
+    }
+  });
 
-    window.ethereum.on("chainChanged", function (chainHex) {
-      connectedChainId = Number.parseInt(chainHex, 16);
-      show(
-        "walletStatus",
-        "Network changed. Chain ID: " + connectedChainId +
-        "\nCheck the selected network before continuing.",
-        "good"
-      );
+  $("copyBtn").addEventListener("click", async () => {
+    if (!generatedCode) {
+      setStatus("generatorStatus", "Generate the code first.");
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(generatedCode);
+      setStatus("generatorStatus", "Solidity code copied.");
+    } catch (e) {
+      setStatus("generatorStatus", "Copy blocked by browser. Use Download .SOL instead.");
+    }
+  });
+
+  $("downloadBtn").addEventListener("click", () => {
+    if (!generatedCode) {
+      setStatus("generatorStatus", "Generate the code first.");
+      return;
+    }
+    const blob = new Blob([generatedCode], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "TOP1GeneratedToken.sol";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  $("connectContractBtn").addEventListener("click", async () => {
+    try {
+      const address = $("contractAddress").value.trim();
+      if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
+        throw new Error("Enter a valid 0x contract address.");
+      }
+      if (!provider) provider = window.ethereum || null;
+      if (!provider) {
+        throw new Error("Connect a wallet first to read contract details.");
+      }
+
+      const chain = await provider.request({ method: "eth_chainId" });
+      if (chain.toLowerCase() !== CHAIN_HEX) {
+        throw new Error("Switch wallet to BNB Smart Chain (Chain ID 56).");
+      }
+
+      if (!window.ethers) {
+        throw new Error("Contract reader library did not load. Reload the page and try again.");
+      }
+
+      const web3Provider = new ethers.BrowserProvider(provider);
+      const contract = new ethers.Contract(address, ABI, web3Provider);
+      const [name, symbol, decimals, totalSupply] = await Promise.all([
+        contract.name(), contract.symbol(), contract.decimals(), contract.totalSupply()
+      ]);
+
+      connectedContract = contract;
+      $("contractName").textContent = "Name: " + name;
+      $("contractSymbol").textContent = "Symbol: " + symbol;
+      $("contractSupply").textContent =
+        "Total supply (raw units): " + totalSupply.toString() + " | Decimals: " + decimals.toString();
+
+      if (wallet) {
+        try {
+          const bal = await contract.balanceOf(wallet);
+          $("contractBalance").textContent =
+            "Your token balance (raw units): " + bal.toString();
+        } catch (_) {
+          $("contractBalance").textContent = "Could not read token balance.";
+        }
+      }
+
+      setStatus("contractStatus", "Contract connected for read-only checks.");
+    } catch (e) {
+      setStatus("contractStatus", "Contract connection failed: " + e.message);
+    }
+  });
+
+  $("explorerBtn").addEventListener("click", () => {
+    const address = $("contractAddress").value.trim();
+    if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
+      setStatus("contractStatus", "Enter a valid contract address first.");
+      return;
+    }
+    window.open("https://bscscan.com/address/" + address, "_blank", "noopener");
+  });
+
+  $("connectBtn").addEventListener("click", connectWallet);
+  $("checkWalletBtn").addEventListener("click", checkWallet);
+
+  if (window.ethereum) {
+    provider = window.ethereum;
+    window.ethereum.on?.("accountsChanged", accounts => {
+      wallet = accounts && accounts.length ? accounts[0] : "";
+      $("walletAddress").textContent = wallet ? "Address: " + wallet : "";
+      $("walletBalance").textContent = "";
+      checkWallet();
     });
+    window.ethereum.on?.("chainChanged", () => checkWallet());
   }
 })();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
 </body>
-      </html>
-      
+  </html>
+  
