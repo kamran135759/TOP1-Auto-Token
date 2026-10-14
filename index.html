@@ -7,118 +7,124 @@
 <meta name="theme-color" content="#080d1b">
 <title>TOP1 Auto Token Studio</title>
 <style>
-:root{color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:#080d1b;color:#f4f6ff;font-family:Arial,sans-serif}
-header{text-align:center;padding:24px 16px;border-bottom:1px solid #283653}
-.logo{width:56px;height:56px;margin:auto;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#9b7bff,#39d9ff);color:#08101f;font-size:24px;font-weight:900}
-h1{font-size:23px;margin:12px 0 5px}
-.subtitle{font-size:13px;color:#a9b5d0}
-main{max-width:700px;margin:auto;padding:15px}
+body{margin:0;background:#080d1b;color:#f3f6ff;font-family:Arial,sans-serif}
+header{text-align:center;padding:24px 14px;border-bottom:1px solid #293653}
+.logo{width:55px;height:55px;margin:auto;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#9b7bff,#39d9ff);color:#07101f;font-size:24px;font-weight:900}
+h1{font-size:24px;margin:12px 0 6px}
+.sub{color:#a9b5d0;font-size:13px}
+main{max-width:680px;margin:auto;padding:16px}
 .card{background:#111a2d;border:1px solid #293653;border-radius:16px;padding:17px;margin-bottom:15px}
-h2{font-size:17px;margin:0 0 13px}
-label{display:block;margin:12px 0 6px;font-size:13px;color:#b8c5de}
-input{width:100%;padding:12px;border-radius:9px;border:1px solid #344361;background:#0a1222;color:white;font-size:15px}
-button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:10px;background:#8270f8;color:white;font-size:14px;font-weight:bold;cursor:pointer}
+h2{font-size:17px;margin:0 0 14px}
+label{display:block;font-size:13px;color:#b6c3dc;margin:12px 0 6px}
+input{width:100%;padding:12px;border-radius:9px;border:1px solid #344361;background:#0a1222;color:#fff;font-size:15px}
+button{width:100%;padding:13px;border:0;border-radius:10px;margin:6px 0;background:#8d79ff;color:#fff;font-size:14px;font-weight:bold;cursor:pointer}
 button.secondary{background:#263451}
 button.green{background:#087e72}
 button:disabled{opacity:.5}
+.status{font-size:13px;line-height:1.6;color:#c3cde1;overflow-wrap:anywhere;margin-top:9px}
+.value{font-size:13px;color:#58e0ca;overflow-wrap:anywhere;margin-top:8px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.grid button{margin:5px 0}
-.status{font-size:13px;line-height:1.6;color:#c5cfe2;overflow-wrap:anywhere;margin-top:9px}
-.value{font-size:13px;line-height:1.6;color:#5be1cb;overflow-wrap:anywhere;margin-top:8px}
-pre{margin-top:12px;padding:12px;background:#080d1b;border:1px solid #293653;border-radius:9px;white-space:pre;overflow:auto;max-height:380px;font-size:12px;line-height:1.5}
-.note{font-size:12px;line-height:1.7;color:#ffcf80}
-footer{text-align:center;color:#7584a2;padding:10px 20px 28px;font-size:12px}
+.grid button{margin:0}
+.note{font-size:12px;color:#ffce79;line-height:1.7}
+pre{white-space:pre;overflow:auto;background:#080d1b;border:1px solid #293653;border-radius:9px;padding:12px;font-size:12px;line-height:1.5;max-height:320px}
+footer{text-align:center;padding:15px;color:#7584a2;font-size:12px}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">T1</div>
   <h1>TOP1 Auto Token Studio</h1>
-  <div class="subtitle">Generate · Connect · Manage</div>
+  <div class="sub">Generate · Connect · Manage</div>
 </header>
 
 <main>
   <section class="card">
-    <h2>1. Wallet</h2>
-    <button id="connectWallet" class="green">CONNECT WALLET</button>
-    <button id="checkWallet" class="secondary">CHECK WALLET</button>
-    <div id="walletStatus" class="status">Wallet not connected.</div>
-    <div id="walletAddress" class="value"></div>
-    <div id="walletBalance" class="value"></div>
+    <h2>1. Wallet Connection</h2>
+    <button id="connectBtn">Connect Wallet</button>
+    <div class="status" id="walletStatus">Wallet not connected.</div>
+    <div class="value" id="walletAddress"></div>
+    <div class="value" id="walletBalance"></div>
+    <button class="secondary" id="checkWalletBtn">Check Wallet & Network</button>
   </section>
 
   <section class="card">
-    <h2>2. Generate Token Contract</h2>
+    <h2>2. Token Generator</h2>
     <label for="tokenName">Token Name</label>
-    <input id="tokenName" value="TOP1" maxlength="40">
+    <input id="tokenName" value="TOP1">
 
     <label for="tokenSymbol">Token Symbol</label>
-    <input id="tokenSymbol" value="TOP1" maxlength="12">
+    <input id="tokenSymbol" value="TOP1">
 
-    <label for="tokenDecimals">Decimals (0–18)</label>
-    <input id="tokenDecimals" type="number" min="0" max="18" step="1" value="18">
+    <label for="tokenDecimals">Decimals</label>
+    <input id="tokenDecimals" value="18" inputmode="numeric">
 
-    <label for="tokenSupply">Whole Token Supply</label>
-    <input id="tokenSupply" type="number" min="1" step="1" value="1000000">
+    <label for="tokenSupply">Total Supply</label>
+    <input id="tokenSupply" value="1000000" inputmode="numeric">
 
     <div class="grid">
-      <button id="subtractSupply" class="secondary">− 1,000,000</button>
-      <button id="addSupply" class="secondary">+ 1,000,000</button>
+      <button class="secondary" id="minusBtn">− 1,000,000</button>
+      <button class="secondary" id="plusBtn">+ 1,000,000</button>
     </div>
 
-    <button id="startGenerator" class="green">START</button>
-    <button id="generateContract">GENERATE CONTRACT</button>
-    <button id="saveContract" class="secondary">SAVE .SOL FILE</button>
-    <button id="copyContract" class="secondary">COPY SOLIDITY CODE</button>
-
-    <div id="generatorStatus" class="status">Set your token details and press START.</div>
-    <pre id="contractOutput">// Generated Solidity source will appear here.</pre>
+    <button id="startBtn" class="green">START</button>
+    <button id="generateBtn">GENERATE SOLIDITY CODE</button>
+    <div class="status" id="generatorStatus">Ready to configure token.</div>
   </section>
 
   <section class="card">
-    <h2>3. Connect Existing Contract</h2>
-    <label for="contractAddress">Contract Address (BNB Smart Chain)</label>
-    <input id="contractAddress" placeholder="0x..." value="0x67299d18D1c78e591DDBa95d10148fa5644b8f7D">
-    <button id="connectContract">CONNECT CONTRACT</button>
-    <button id="openExplorer" class="secondary">OPEN ON BscScan</button>
-    <div id="contractStatus" class="status">Enter an address and connect to read contract details.</div>
-    <div id="readName" class="value"></div>
-    <div id="readSymbol" class="value"></div>
-    <div id="readDecimals" class="value"></div>
-    <div id="readSupply" class="value"></div>
-    <div id="readBalance" class="value"></div>
+    <h2>3. Contract Address</h2>
+    <label for="contractAddress">Contract Address on BNB Smart Chain</label>
+    <input id="contractAddress" placeholder="0x...">
+
+    <button id="connectContractBtn">CONNECT CONTRACT</button>
+    <div class="status" id="contractStatus">
+      Enter the contract address after deploying in Remix.
+    </div>
+    <div class="value" id="contractName"></div>
+    <div class="value" id="contractSymbol"></div>
+    <div class="value" id="contractSupply"></div>
+    <div class="value" id="contractBalance"></div>
+    <button class="secondary" id="explorerBtn">OPEN ON BscScan</button>
+  </section>
+
+  <section class="card">
+    <h2>4. Generated Solidity</h2>
+    <div class="grid">
+      <button class="secondary" id="copyBtn">COPY CODE</button>
+      <button class="secondary" id="downloadBtn">DOWNLOAD .SOL</button>
+    </div>
+    <pre id="codeOutput">// Press GENERATE SOLIDITY CODE to create the contract source.</pre>
   </section>
 
   <section class="card">
     <h2>Important</h2>
-    <div class="note">
-      Generate creates source code only. It does not deploy a token.
-      Deploy in Remix and approve the transaction in your wallet.
-      The supply buttons change the next generated contract only; they do not
-      change the supply of an already deployed contract. Never enter your
-      wallet recovery phrase or private key here.
-    </div>
+    <p class="note">
+      START and GENERATE do not deploy a contract. Deploy the generated source
+      through Remix and approve the transaction in your wallet. Increasing the
+      supply here only changes the next generated contract; it cannot increase
+      the supply of an already deployed fixed-supply token. Never enter your
+      recovery phrase or private key in this app.
+    </p>
   </section>
 </main>
-
 <footer>TOP1 Studio · BNB Smart Chain</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
 <script>
 (() => {
   "use strict";
 
   const $ = id => document.getElementById(id);
-  const CHAIN_ID = "0x38";
-  const DEFAULT_CONTRACT = "0x67299d18D1c78e591DDBa95d10148fa5644b8f7D";
+  const CHAIN_HEX = "0x38";
+  const CHAIN_DEC = 56;
+  const PROJECT_ID = "a6f890ea7b1d6e1cc4aea51ebe5e1120";
 
   let provider = null;
-  let account = "";
-  let generatedSource = "";
+  let wallet = "";
+  let generatedCode = "";
+  let connectedContract = null;
 
-  const READ_ABI = [
+  const ABI = [
     "function name() view returns (string)",
     "function symbol() view returns (string)",
     "function decimals() view returns (uint8)",
@@ -126,46 +132,48 @@ footer{text-align:center;color:#7584a2;padding:10px 20px 28px;font-size:12px}
     "function balanceOf(address) view returns (uint256)"
   ];
 
-  function status(id, text) {
+  function setStatus(id, text) {
     $(id).textContent = text;
   }
 
-  function wholeSupply() {
+  function shortAddress(a) {
+    return a ? a.slice(0, 6) + "..." + a.slice(-4) : "";
+  }
+
+  function getSupply() {
     const raw = $("tokenSupply").value.trim();
     if (!/^\d+$/.test(raw)) throw new Error("Supply must be a whole number.");
     const n = BigInt(raw);
-    if (n < 1n || n > 1000000000000000000n) {
+    if (n <= 0n || n > 1000000000000000000n) {
       throw new Error("Supply must be between 1 and 1 quintillion.");
     }
     return n;
   }
 
-  function decimalCount() {
+  function getDecimals() {
     const raw = $("tokenDecimals").value.trim();
-    if (!/^\d+$/.test(raw)) throw new Error("Decimals must be a whole number.");
+    if (!/^\d+$/.test(raw)) throw new Error("Decimals must be an integer.");
     const n = Number(raw);
     if (n < 0 || n > 18) throw new Error("Decimals must be from 0 to 18.");
     return n;
   }
 
-  function buildSource() {
+  function contractSource() {
     const name = $("tokenName").value.trim();
     const symbol = $("tokenSymbol").value.trim();
-    const decimals = decimalCount();
-    const supply = wholeSupply();
+    const decimals = getDecimals();
+    const supply = getSupply();
 
     if (!name || !symbol) throw new Error("Name and symbol are required.");
-    if (!/^[A-Za-z0-9 ]+$/.test(name)) {
-      throw new Error("Name can contain English letters, numbers and spaces only.");
-    }
-    if (!/^[A-Za-z0-9]+$/.test(symbol)) {
-      throw new Error("Symbol can contain English letters and numbers only.");
-    }
     if (name.length > 40 || symbol.length > 12) {
-      throw new Error("Name or symbol is too long.");
+      throw new Error("Name max 40 characters; symbol max 12.");
+    }
+    if (!/^[A-Za-z0-9 ]+$/.test(name) || !/^[A-Za-z0-9]+$/.test(symbol)) {
+      throw new Error("Use English letters and numbers for name and symbol.");
     }
 
-    const rawSupply = supply * (10n ** BigInt(decimals));
+    const multiplier = 10n ** BigInt(decimals);
+    const total = supply * multiplier;
 
     return `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
@@ -174,7 +182,7 @@ contract TOP1GeneratedToken {
     string public constant name = "${name}";
     string public constant symbol = "${symbol}";
     uint8 public constant decimals = ${decimals};
-    uint256 public constant totalSupply = ${rawSupply};
+    uint256 public constant totalSupply = ${total};
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -216,212 +224,205 @@ contract TOP1GeneratedToken {
 }`;
   }
 
-  async function ensureWallet() {
-    if (!window.ethereum) {
-      throw new Error("Wallet not detected. Open this page inside your wallet browser.");
-    }
-    provider = window.ethereum;
-    return provider;
-  }
-
   async function connectWallet() {
     try {
-      await ensureWallet();
+      if (!window.ethereum) {
+        setStatus("walletStatus",
+          "Wallet provider not detected. Open this site inside your wallet browser, or use the Reown connection modal.");
+        return;
+      }
+
+      provider = window.ethereum;
       const accounts = await provider.request({ method: "eth_requestAccounts" });
-      account = accounts && accounts.length ? accounts[0] : "";
-      if (!account) throw new Error("No wallet account was returned.");
-      $("walletAddress").textContent = "Address: " + account;
-      status("walletStatus", "Wallet connected. Checking network...");
+      if (!accounts || !accounts.length) throw new Error("No account returned.");
+
+      wallet = accounts[0];
+      $("walletAddress").textContent = "Address: " + wallet;
+      setStatus("walletStatus", "Wallet connected.");
       await checkWallet();
     } catch (e) {
-      status("walletStatus", "Connection failed: " + e.message);
+      setStatus("walletStatus", "Connection failed: " + e.message);
     }
   }
 
   async function checkWallet() {
     try {
-      await ensureWallet();
+      if (!provider && window.ethereum) provider = window.ethereum;
+      if (!provider) throw new Error("Wallet not detected. Connect first.");
+
       const accounts = await provider.request({ method: "eth_accounts" });
-      account = accounts && accounts.length ? accounts[0] : account;
-      if (!account) throw new Error("Connect your wallet first.");
+      if (accounts && accounts.length) wallet = accounts[0];
+      if (!wallet) throw new Error("Connect your wallet first.");
 
       const chain = await provider.request({ method: "eth_chainId" });
-      if (chain.toLowerCase() !== CHAIN_ID) {
+      if (chain.toLowerCase() !== CHAIN_HEX) {
+        setStatus("walletStatus", "Wrong network. Switch to BNB Smart Chain, Chain ID 56.");
         $("walletBalance").textContent = "";
-        status("walletStatus", "Wrong network. Select BNB Smart Chain Mainnet (Chain ID 56).");
         return;
       }
 
-      const balanceHex = await provider.request({
+      const balance = await provider.request({
         method: "eth_getBalance",
-        params: [account, "latest"]
+        params: [wallet, "latest"]
       });
-      const wei = BigInt(balanceHex);
-      const bnb = wei / (10n ** 18n);
-      const frac = (wei % (10n ** 18n)).toString().padStart(18, "0").slice(0, 6);
-
-      $("walletAddress").textContent = "Address: " + account;
-      $("walletBalance").textContent = "BNB balance: " + bnb + "." + frac;
-      status("walletStatus", "Connected to BNB Smart Chain.");
+      const wei = BigInt(balance);
+      const whole = wei / (10n ** 18n);
+      const fraction = (wei % (10n ** 18n)).toString().padStart(18, "0").slice(0, 6);
+      $("walletAddress").textContent = "Address: " + wallet;
+      $("walletBalance").textContent = "Balance: " + whole + "." + fraction + " BNB";
+      setStatus("walletStatus", "Connected to BNB Smart Chain (56).");
     } catch (e) {
-      status("walletStatus", e.message);
+      setStatus("walletStatus", "Wallet check failed: " + e.message);
     }
   }
 
-  $("startGenerator").addEventListener("click", () => {
+  $("startBtn").addEventListener("click", () => {
     try {
-      wholeSupply();
-      decimalCount();
-      if (!$("tokenName").value.trim() || !$("tokenSymbol").value.trim()) {
-        throw new Error("Enter the token name and symbol.");
-      }
-      status("generatorStatus", "Settings checked. Press GENERATE CONTRACT to build the Solidity source.");
+      getSupply();
+      getDecimals();
+      setStatus("generatorStatus",
+        "START complete. Settings checked. Press GENERATE SOLIDITY CODE next.");
     } catch (e) {
-      status("generatorStatus", "Error: " + e.message);
+      setStatus("generatorStatus", "Error: " + e.message);
     }
   });
 
-  $("addSupply").addEventListener("click", () => {
+  $("plusBtn").addEventListener("click", () => {
     try {
-      $("tokenSupply").value = (wholeSupply() + 1000000n).toString();
-      status("generatorStatus", "Added 1,000,000 to the next generated contract settings.");
+      const n = getSupply() + 1000000n;
+      $("tokenSupply").value = n.toString();
+      setStatus("generatorStatus", "Supply increased by 1,000,000 for the next generated contract.");
     } catch (e) {
-      status("generatorStatus", "Error: " + e.message);
+      setStatus("generatorStatus", e.message);
     }
   });
 
-  $("subtractSupply").addEventListener("click", () => {
+  $("minusBtn").addEventListener("click", () => {
     try {
-      const n = wholeSupply();
+      const n = getSupply();
       if (n <= 1000000n) {
-        status("generatorStatus", "Supply cannot be reduced below 1,000,000.");
+        setStatus("generatorStatus", "Supply cannot be reduced below 1,000,000.");
         return;
       }
       $("tokenSupply").value = (n - 1000000n).toString();
-      status("generatorStatus", "Subtracted 1,000,000 from the next generated contract settings.");
+      setStatus("generatorStatus", "Supply decreased by 1,000,000 for the next generated contract.");
     } catch (e) {
-      status("generatorStatus", "Error: " + e.message);
+      setStatus("generatorStatus", e.message);
     }
   });
 
-  $("generateContract").addEventListener("click", () => {
+  $("generateBtn").addEventListener("click", () => {
     try {
-      generatedSource = buildSource();
-      $("contractOutput").textContent = generatedSource;
-      status("generatorStatus", "Contract source generated. Save it, then compile and deploy in Remix.");
+      generatedCode = contractSource();
+      $("codeOutput").textContent = generatedCode;
+      setStatus("generatorStatus",
+        "Code generated successfully. Save the .sol file and compile/deploy it in Remix.");
     } catch (e) {
-      generatedSource = "";
-      $("contractOutput").textContent = "";
-      status("generatorStatus", "Generation failed: " + e.message);
+      setStatus("generatorStatus", "Generation failed: " + e.message);
     }
   });
 
-  $("saveContract").addEventListener("click", () => {
-    if (!generatedSource) {
-      status("generatorStatus", "Generate the contract first.");
+  $("copyBtn").addEventListener("click", async () => {
+    if (!generatedCode) {
+      setStatus("generatorStatus", "Generate the code first.");
       return;
     }
-    const blob = new Blob([generatedSource], { type: "text/plain;charset=utf-8" });
+    try {
+      await navigator.clipboard.writeText(generatedCode);
+      setStatus("generatorStatus", "Solidity code copied.");
+    } catch (e) {
+      setStatus("generatorStatus", "Copy blocked by browser. Use Download .SOL instead.");
+    }
+  });
+
+  $("downloadBtn").addEventListener("click", () => {
+    if (!generatedCode) {
+      setStatus("generatorStatus", "Generate the code first.");
+      return;
+    }
+    const blob = new Blob([generatedCode], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "TOP1GeneratedToken.sol";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    status("generatorStatus", "Solidity file download requested.");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "TOP1GeneratedToken.sol";
+    a.click();
+    URL.revokeObjectURL(url);
   });
 
-  $("copyContract").addEventListener("click", async () => {
-    if (!generatedSource) {
-      status("generatorStatus", "Generate the contract first.");
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(generatedSource);
-      status("generatorStatus", "Contract code copied.");
-    } catch (_) {
-      status("generatorStatus", "Copy unavailable in this browser. Use SAVE .SOL FILE.");
-    }
-  });
-
-  $("connectContract").addEventListener("click", async () => {
+  $("connectContractBtn").addEventListener("click", async () => {
     try {
       const address = $("contractAddress").value.trim();
       if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
         throw new Error("Enter a valid 0x contract address.");
       }
-      await ensureWallet();
+      if (!provider) provider = window.ethereum || null;
+      if (!provider) {
+        throw new Error("Connect a wallet first to read contract details.");
+      }
 
       const chain = await provider.request({ method: "eth_chainId" });
-      if (chain.toLowerCase() !== CHAIN_ID) {
-        throw new Error("Switch your wallet to BNB Smart Chain (Chain ID 56).");
+      if (chain.toLowerCase() !== CHAIN_HEX) {
+        throw new Error("Switch wallet to BNB Smart Chain (Chain ID 56).");
       }
+
       if (!window.ethers) {
-        throw new Error("The ethers library did not load. Check internet and reload.");
+        throw new Error("Contract reader library did not load. Reload the page and try again.");
       }
 
-      const web3 = new ethers.BrowserProvider(provider);
-      const contract = new ethers.Contract(address, READ_ABI, web3);
-
-      const [name, symbol, decimals, supply] = await Promise.all([
-        contract.name(),
-        contract.symbol(),
-        contract.decimals(),
-        contract.totalSupply()
+      const web3Provider = new ethers.BrowserProvider(provider);
+      const contract = new ethers.Contract(address, ABI, web3Provider);
+      const [name, symbol, decimals, totalSupply] = await Promise.all([
+        contract.name(), contract.symbol(), contract.decimals(), contract.totalSupply()
       ]);
 
-      $("readName").textContent = "Name: " + name;
-      $("readSymbol").textContent = "Symbol: " + symbol;
-      $("readDecimals").textContent = "Decimals: " + decimals.toString();
-      $("readSupply").textContent =
-        "Raw total supply: " + supply.toString();
+      connectedContract = contract;
+      $("contractName").textContent = "Name: " + name;
+      $("contractSymbol").textContent = "Symbol: " + symbol;
+      $("contractSupply").textContent =
+        "Total supply (raw units): " + totalSupply.toString() + " | Decimals: " + decimals.toString();
 
-      if (account) {
+      if (wallet) {
         try {
-          const balance = await contract.balanceOf(account);
-          $("readBalance").textContent =
-            "Your raw token balance: " + balance.toString();
+          const bal = await contract.balanceOf(wallet);
+          $("contractBalance").textContent =
+            "Your token balance (raw units): " + bal.toString();
         } catch (_) {
-          $("readBalance").textContent = "Could not read token balance.";
+          $("contractBalance").textContent = "Could not read token balance.";
         }
-      } else {
-        $("readBalance").textContent = "";
       }
 
-      status("contractStatus", "Contract connected. Values were read from the blockchain.");
+      setStatus("contractStatus", "Contract connected for read-only checks.");
     } catch (e) {
-      status("contractStatus", "Contract connection failed: " + e.message);
+      setStatus("contractStatus", "Contract connection failed: " + e.message);
     }
   });
 
-  $("openExplorer").addEventListener("click", () => {
+  $("explorerBtn").addEventListener("click", () => {
     const address = $("contractAddress").value.trim();
     if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-      status("contractStatus", "Enter a valid contract address first.");
+      setStatus("contractStatus", "Enter a valid contract address first.");
       return;
     }
     window.open("https://bscscan.com/address/" + address, "_blank", "noopener");
   });
 
-  $("connectWallet").addEventListener("click", connectWallet);
-  $("checkWallet").addEventListener("click", checkWallet);
+  $("connectBtn").addEventListener("click", connectWallet);
+  $("checkWalletBtn").addEventListener("click", checkWallet);
 
   if (window.ethereum) {
     provider = window.ethereum;
     window.ethereum.on?.("accountsChanged", accounts => {
-      account = accounts && accounts.length ? accounts[0] : "";
-      $("walletAddress").textContent = account ? "Address: " + account : "";
+      wallet = accounts && accounts.length ? accounts[0] : "";
+      $("walletAddress").textContent = wallet ? "Address: " + wallet : "";
       $("walletBalance").textContent = "";
       checkWallet();
     });
     window.ethereum.on?.("chainChanged", () => checkWallet());
   }
-
-  $("contractAddress").value = DEFAULT_CONTRACT;
 })();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
 </body>
       </html>
       
